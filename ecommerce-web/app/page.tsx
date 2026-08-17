@@ -72,7 +72,14 @@ export default function Home() {
             MyStore<span className="text-indigo-600 transition-colors group-hover:text-violet-600">.</span>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
+            <Link
+              href="/admin"
+              className="text-xs font-bold uppercase tracking-wider text-indigo-600 hover:text-indigo-700 transition-colors bg-indigo-50 px-3 py-2 rounded-xl"
+            >
+              + Add Product
+            </Link>
+
             <Link
               href="/orders"
               className="hidden sm:inline-block text-xs font-semibold text-slate-600 hover:text-indigo-600 transition-colors"
@@ -226,7 +233,7 @@ export default function Home() {
               No matching products found.
             </p>
             <p className="mt-1 text-xs text-slate-400">
-              Try adjusting your search query or switching categories.
+              Try clicking <Link href="/admin" className="text-indigo-600 underline font-semibold">Add Product</Link> above to publish your first item!
             </p>
           </div>
         )}

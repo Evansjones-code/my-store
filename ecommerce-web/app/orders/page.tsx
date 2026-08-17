@@ -19,6 +19,8 @@ interface Order {
   items: OrderItem[];
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ export default function OrdersPage() {
   useEffect(() => {
     async function fetchOrders() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/orders");
+        const res = await fetch(`${API_URL}/orders`);
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data = await res.json();
         setOrders(data);
