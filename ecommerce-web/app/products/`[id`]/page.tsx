@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import AddToCartButton from './AddToCartButton'; // We'll create this client button below
+import AddToCartButton from './AddToCartButton';
 
 interface Product {
   id: number;
@@ -11,9 +11,11 @@ interface Product {
   image_url?: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    const res = await fetch(`http://127.0.0.1:8000/products/${id}`, {
+    const res = await fetch(`${API_URL}/products/${id}`, {
       cache: 'no-store',
     });
 
