@@ -13,18 +13,20 @@ interface Product {
   image_url?: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const { addToCart, totalItems, openCart } = useCart();
+  const { addToCart, totalCount, openDrawer } = useCart();
 
   useEffect(() => {
     async function loadProducts() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/products", { cache: "no-store" });
+        const res = await fetch(`${API_URL}/products`, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           setProducts(data);
@@ -79,13 +81,13 @@ export default function Home() {
             </Link>
 
             <button
-              onClick={openCart}
-              className="relative flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 hover:bg-indigo-500 transition-all active:scale-95"
+              onClick={openDrawer}
+              className="relative flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 hover:bg-indigo-500 transition-all active:scale-95 cursor-pointer"
             >
               <span>🛒 Cart</span>
-              {totalItems > 0 && (
+              {totalCount > 0 && (
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs font-bold text-indigo-600 shadow-sm">
-                  {totalItems}
+                  {totalCount}
                 </span>
               )}
             </button>
@@ -105,7 +107,7 @@ export default function Home() {
             Discover Exceptional Products
           </h2>
           <p className="mt-3 max-w-xl text-indigo-100 text-base sm:text-lg leading-relaxed">
-            A high-performance e-commerce catalog backed by secure SQLite storage and clean Tailwind styling.
+            A high-performance e-commerce catalog backed by secure storage and clean Tailwind styling.
           </p>
         </div>
       </section>
@@ -118,7 +120,7 @@ export default function Home() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all shadow-sm ${
+                className={`rounded-full px-4 py-2 text-xs font-semibold transition-all shadow-sm cursor-pointer ${
                   selectedCategory === cat
                     ? "bg-indigo-600 text-white shadow-indigo-200 scale-105"
                     : "bg-white text-slate-600 border border-slate-200/80 hover:border-indigo-300 hover:bg-slate-50"
@@ -210,7 +212,7 @@ export default function Home() {
 
                 <button
                   onClick={() => addToCart(product)}
-                  className="mt-6 w-full rounded-2xl bg-slate-900 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-indigo-600 active:scale-[0.98]"
+                  className="mt-6 w-full rounded-2xl bg-slate-900 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-indigo-600 active:scale-[0.98] cursor-pointer"
                 >
                   Add to Cart
                 </button>

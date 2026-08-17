@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
-  const { totalItems } = useCart();
+  const { totalCount, openDrawer } = useCart();
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -21,11 +21,14 @@ export default function Navbar() {
             + Add Product
           </Link>
 
-          <button className="relative flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition-colors">
+          <button
+            onClick={openDrawer}
+            className="relative flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-800 transition-colors cursor-pointer"
+          >
             <span>🛒 Cart</span>
-            {totalItems > 0 && (
+            {totalCount > 0 && (
               <span className="bg-indigo-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
-                {totalItems}
+                {totalCount}
               </span>
             )}
           </button>
