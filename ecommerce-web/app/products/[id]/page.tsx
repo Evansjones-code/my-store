@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AddToCartButton from './AddToCartButton';
 
+// Force Vercel cache clear update
 interface Product {
   id: number;
   name: string;
