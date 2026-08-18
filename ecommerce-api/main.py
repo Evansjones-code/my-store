@@ -19,6 +19,19 @@ app.add_middleware(
 )
 
 
+# --- Root / Health Check Route ---
+
+
+@app.get("/", status_code=status.HTTP_200_OK)
+def read_root():
+    """Health check endpoint to prevent Render 404 logs."""
+    return {
+        "status": "online",
+        "service": "MyStore API",
+        "docs_url": "/docs",
+    }
+
+
 # --- Product Routes ---
 
 
