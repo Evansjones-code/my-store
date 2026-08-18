@@ -6,10 +6,12 @@ import models
 import schemas
 from database import Base, engine, get_db
 
+# Initialize database tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="MyStore API (SQLite)")
 
+# Configure CORS Middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,9 +24,9 @@ app.add_middleware(
 # --- Root / Health Check Route ---
 
 
-@app.get("/", status_code=status.HTTP_200_OK)
+@app.api_route("/", methods=["GET", "HEAD"], status_code=status.HTTP_200_OK)
 def read_root():
-    """Health check endpoint to prevent Render 404 logs."""
+    """Health check endpoint accepting both GET and HEAD probes from Render."""
     return {
         "status": "online",
         "service": "MyStore API",
